@@ -1,4 +1,6 @@
-﻿using DampCode_API.Models;
+﻿using DampCode_API.Dto;
+using DampCode_API.Models;
+using DnsClient;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
@@ -18,5 +20,55 @@ namespace DampCode_API.Controllers
 
         //CREATE
         //[HttpPost]
+        //public async Task<ActionResult> CreateUser(User user)
+        //{
+        //    await _users.InsertOneAsync(user);
+
+        //    return CreatedAtAction(
+        //        nameof(GetById), //pegar do outro controller
+        //        new { id = user.Id },
+        //        user
+        //    );
+        //}
+
+        // Create participante
+        [HttpPost("register/participante")]
+        public async Task<IActionResult> RegisterParticipant(ParticipanteDto dto)
+        {
+            var user = new User
+            {
+                Name = dto.Name,
+                Email = dto.Email,
+                Password = dto.Password,
+                Role = "participante",
+                Nivel = 1,
+                Xp = 0
+            };
+
+            await _users.InsertOneAsync(user);
+
+            //return Ok();
+
+            return CreatedAtAction(
+                 nameof(user), //pegar do outro controller
+                  new { id = user.Id },
+                  user
+           );
+        }
+
+        [HttpPost("register/empresa")]
+        public async Task<IActionResult> RegisterEmpresa(EmpresaDto dto) {
+            var user = new User
+            {
+                Name = dto.Name,
+                Email = dto.Email,
+                Password = dto.Password,
+                Cnpj = dto.Cnpj,
+                Verificado = dto.Verificado,
+                HackatonsIds = dto.HackatonsIds
+            };
+            await _users.InsertOneAsync(user);
+            return Ok();
+        }
     }
 }

@@ -7,17 +7,17 @@ namespace DampCode_API.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
-        public required string Id { get; set; }
+        public  string? Id { get; set; }
         [BsonElement("name"), BsonRepresentation(BsonType.String)]
-        public required string Name { get; set; }
+        public  string? Name { get; set; }
         [BsonElement("email"), BsonRepresentation(BsonType.String)]
-        public required string Email { get; set; }
+        public  string? Email { get; set; }
         [BsonElement("password"), BsonRepresentation(BsonType.String)]
-        public required string Password { get; set; }
+        public  string? Password { get; set; }
 
         //DEFINIÇÃO DO TIPO
         [BsonElement("role"), BsonRepresentation(BsonType.String)]
-        public required string Role {  get; set; }
+        public  string? Role {  get; set; }
 
         // participante
         [BsonElement("nivel")]
