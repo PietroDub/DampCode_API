@@ -2,7 +2,7 @@
 {
     public class Submission
     {
-        private string UserId { get; set; }
+        private string? UserId { get; set; }
         
     }
 }
