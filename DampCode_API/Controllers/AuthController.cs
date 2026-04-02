@@ -15,7 +15,7 @@ namespace DampCode_API.Controllers
         private readonly IMongoCollection<User> _users;
         public AuthController(MongoDbService mongoDbService)
         {
-            _users = mongoDbService.Database?.GetCollection<User>("user");
+            _users = mongoDbService.Database.GetCollection<User>("users");
         }
 
         //CREATE
@@ -47,13 +47,15 @@ namespace DampCode_API.Controllers
 
             await _users.InsertOneAsync(user);
 
-            //return Ok();
+            Console.WriteLine(user.Id);
 
-            return CreatedAtAction(
-                 nameof(user), //pegar do outro controller
-                  new { id = user.Id },
-                  user
-           );
+            return Ok(user);
+
+           // return CreatedAtAction(
+           //      nameof(user), //pegar do outro controller
+           //       new { id = user.Id },
+           //       user
+           //);
         }
 
         [HttpPost("register/empresa")]
@@ -64,11 +66,14 @@ namespace DampCode_API.Controllers
                 Email = dto.Email,
                 Password = dto.Password,
                 Cnpj = dto.Cnpj,
+                Role = "empresa",
                 Verificado = dto.Verificado,
                 HackatonsIds = dto.HackatonsIds
             };
             await _users.InsertOneAsync(user);
             return Ok();
         }
+
+
     }
 }

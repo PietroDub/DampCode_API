@@ -7,7 +7,7 @@ namespace DampCode_API.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.String)]
-        private string HackatonId { get; set; }
+        public string HackatonId { get; set; }
         [BsonElement("Titulo"), BsonRepresentation(BsonType.String)]
         public string? Titulo { get; set; }
         [BsonElement("Descricao"), BsonRepresentation(BsonType.String)]

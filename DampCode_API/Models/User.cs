@@ -6,7 +6,7 @@ namespace DampCode_API.Models
     public class User
     {
         [BsonId]
-        [BsonRepresentation(BsonType.String)]
+        [BsonRepresentation(BsonType.ObjectId)]
         public  string? Id { get; set; }
         [BsonElement("name"), BsonRepresentation(BsonType.String)]
         public  string? Name { get; set; }
