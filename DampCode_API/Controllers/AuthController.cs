@@ -70,5 +70,15 @@ namespace DampCode_API.Controllers
             await _users.InsertOneAsync(user);
             return Ok();
         }
+
+        // get para fazer login
+        [HttpGet("{id}")]
+
+        public async Task<ActionResult<User?>> GetUserAsync(string id) {
+            var filter = Builders<User>.Filter.Eq(x => x.Id, id);
+            var user = _users.Find(filter).FirstOrDefault();
+            return user is not null ? Ok(user) : NotFound();
+        }
+
     }
 }
