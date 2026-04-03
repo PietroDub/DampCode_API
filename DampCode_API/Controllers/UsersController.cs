@@ -37,7 +37,7 @@ namespace DampCode_API.Controllers
 
             if (user == null)
             {
-                return NotFound(new { message = "Usuário não encontrado." });
+                return NotFound(new { message = "Usuário não encontrado!" });
             }
 
             return Ok(user);
