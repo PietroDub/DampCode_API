@@ -15,7 +15,7 @@ namespace DampCode_API.Controllers
         private readonly IMongoCollection<User> _users;
         public AuthController(MongoDbService mongoDbService)
         {
-            _users = mongoDbService.Database?.GetCollection<User>("user");
+            _users = mongoDbService.Database.GetCollection<User>("users");
         }
 
         //CREATE
@@ -39,21 +39,24 @@ namespace DampCode_API.Controllers
             {
                 Name = dto.Name,
                 Email = dto.Email,
-                Password = dto.Password,
+                Password = BCrypt.Net.BCrypt.EnhancedHashPassword(dto.Password),
                 Role = "participante",
                 Nivel = 1,
-                Xp = 0
+                Xp = 0,
+                Tecnologias = dto.Tecnologias
             };
 
             await _users.InsertOneAsync(user);
 
-            //return Ok();
+            Console.WriteLine(user.Id);  
 
-            return CreatedAtAction(
-                 nameof(user), //pegar do outro controller
-                  new { id = user.Id },
-                  user
-           );
+            return Ok(user);
+
+           // return CreatedAtAction(
+           //      nameof(user), //pegar do outro controller
+           //       new { id = user.Id },
+           //       user
+           //);
         }
 
         [HttpPost("register/empresa")]
@@ -64,6 +67,7 @@ namespace DampCode_API.Controllers
                 Email = dto.Email,
                 Password = dto.Password,
                 Cnpj = dto.Cnpj,
+                Role = "empresa",
                 Verificado = dto.Verificado,
                 HackatonsIds = dto.HackatonsIds
             };
@@ -71,14 +75,6 @@ namespace DampCode_API.Controllers
             return Ok();
         }
 
-        // get para fazer login
-        [HttpGet("{id}")]
-
-        public async Task<ActionResult<User?>> GetUserAsync(string id) {
-            var filter = Builders<User>.Filter.Eq(x => x.Id, id);
-            var user = _users.Find(filter).FirstOrDefault();
-            return user is not null ? Ok(user) : NotFound();
-        }
 
     }
 }
