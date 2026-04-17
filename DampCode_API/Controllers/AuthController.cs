@@ -65,7 +65,7 @@ namespace DampCode_API.Controllers
             {
                 Name = dto.Name,
                 Email = dto.Email,
-                Password = dto.Password,
+                Password = BCrypt.Net.BCrypt.EnhancedHashPassword(dto.Password),
                 Cnpj = dto.Cnpj,
                 Role = "empresa",
                 Verificado = dto.Verificado,
@@ -75,6 +75,39 @@ namespace DampCode_API.Controllers
             return Ok();
         }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDto dto)
+        {
+            try
+            {
+                var user = await _users
+                    .Find(u => u.Email == dto.Email)
+                    .FirstOrDefaultAsync();
 
-    }
+                if (user == null)
+                    return Unauthorized("Email ou senha inválidos");
+
+                bool senhaValida = BCrypt.Net.BCrypt.EnhancedVerify(dto.Password, user.Password);
+
+                if (!senhaValida)
+                    return Unauthorized("Email ou senha inválidos");
+
+                return Ok(new
+                {
+                    id = user.Id,
+                    name = user.Name,
+                    email = user.Email,
+                    role = user.Role
+                });
+            }
+            catch (Exception ex)
+            {
+                // log (importante)
+                Console.WriteLine(ex.Message);
+
+                return StatusCode(500, "Erro interno no servidor");
+            }
+
+          }
+        }
 }
