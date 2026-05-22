@@ -7,7 +7,8 @@ namespace DampCode_API.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public  string? Id { get; set; }
+        public string? Id { get; set; }
+
         [BsonElement("name"), BsonRepresentation(BsonType.String)]
         public  string? Name { get; set; }
         [BsonElement("email"), BsonRepresentation(BsonType.String)]
@@ -30,6 +31,12 @@ namespace DampCode_API.Models
         //Empresa
         [BsonElement("cnpj"), BsonRepresentation(BsonType.String)]
         public string? Cnpj { get; set; }
+
+        [BsonElement("descricao"), BsonRepresentation(BsonType.String)]
+        public string? Descricao { get; set; }
+
+        [BsonElement("area"), BsonRepresentation(BsonType.String)]
+        public string? Area { get; set; }
 
         [BsonElement("verificado"), BsonRepresentation(BsonType.Boolean)]
         public bool? Verificado { get; set; }
