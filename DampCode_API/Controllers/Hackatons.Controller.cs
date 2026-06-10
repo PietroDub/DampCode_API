@@ -21,13 +21,17 @@ namespace DampCode_API.Controllers
 
         public async Task<ActionResult<IEnumerable<Hackathon>>> GetAllHackathons()
         {
-            var Hackathons = await _Hackathons.Find(Hackathon => true).FirstOrDefaultAsync();
+            var Hackathons = await _Hackathons.Find(Hackathon => true).ToListAsync();
             return Ok(Hackathons);
         }
 
         [HttpPost("register/Hackathon")]
         public async Task<ActionResult<Hackathon>> CreateHackathon([FromBody] CreateHackathonDTO hackathonDTO)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var Hackathon = new Hackathon
             {
                 Titulo = hackathonDTO.Titulo,
@@ -38,13 +42,13 @@ namespace DampCode_API.Controllers
                 Metodo = hackathonDTO.Metodo,
                 Ranking = hackathonDTO.Ranking,
                 Premiacao = hackathonDTO.Premiacao,
-                CorPrincipal = hackathonDTO.CorPrincipal,
-                CorSecundaria = hackathonDTO.CorSecundaria,
-                CorFundo = hackathonDTO.CorFundo,
+                corPrincipal = hackathonDTO.corPrincipal,
+                corSecundaria = hackathonDTO.corSecundaria,
+                corFundo = hackathonDTO.corFundo,
                 Logo = hackathonDTO.Logo,
                 DataCriacao = hackathonDTO.DataCriacao,
                 DataFinal = hackathonDTO.DataFinal,
-                Status = hackathonDTO.Status
+                status = hackathonDTO.status
             };
             await _Hackathons.InsertOneAsync(Hackathon);
             return CreatedAtAction(nameof(GetHackathonById), new { id = Hackathon.HackathonId }, Hackathon);

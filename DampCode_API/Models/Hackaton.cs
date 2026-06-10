@@ -3,44 +3,45 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace DampCode_API.Models
 {
+    [BsonIgnoreExtraElements]
     public class Hackathon
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string? HackathonId { get; set; }
 
-        [BsonElement("Titulo")]
+        [BsonElement("titulo")]
         public string? Titulo { get; set; }
 
-        [BsonElement("Descricao")]
+        [BsonElement("descricao")]
         public string? Descricao { get; set; }
 
-        [BsonElement("Empresa")]
+        [BsonElement("empresa")]
         public string? Empresa { get; set; }
 
-        [BsonElement("Area")]
+        [BsonElement("area")]
         public string? Area { get; set; }
 
-        [BsonElement("Tecnologias")]
+        [BsonElement("tecnologias")]
         public List<string>? Tecnologias { get; set; }
 
-        [BsonElement("Metodo")]
+        [BsonElement("metodo")]
         public string? Metodo { get; set; }
 
-        [BsonElement("Ranking")]
+        [BsonElement("ranking")]
         public string? Ranking { get; set; }
 
-        [BsonElement("Premiacao")]
+        [BsonElement("premiacao")]
         public decimal Premiacao { get; set; }
 
-        [BsonElement("CorPrincipal")]
-        public string? CorPrincipal { get; set; }
+        [BsonElement("corPrincipal")]
+        public string? corPrincipal { get; set; }
 
-        [BsonElement("CorSecundaria")]
-        public string? CorSecundaria { get; set; }
+        [BsonElement("corSecundaria")]
+        public string? corSecundaria { get; set; }
 
-        [BsonElement("CorFundo")]
-        public string? CorFundo { get; set; }
+        [BsonElement("corFundo")]
+        public string? corFundo { get; set; }
 
         [BsonElement("Logo")]
         public string? Logo { get; set; }
@@ -51,7 +52,7 @@ namespace DampCode_API.Models
         [BsonElement("DataFinal")]
         public DateTime DataFinal { get; set; }
 
-        [BsonElement("Status")]
-        public bool Status { get; set; }
+        [BsonElement("status")]
+        public bool status { get; set; }
     }
 }

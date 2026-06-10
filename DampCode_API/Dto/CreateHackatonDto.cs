@@ -18,11 +18,11 @@
 
         public decimal Premiacao { get; set; }
 
-        public string? CorPrincipal { get; set; }
+        public string? corPrincipal { get; set; }
 
-        public string? CorSecundaria { get; set; }
+        public string? corSecundaria { get; set; }
 
-        public string? CorFundo { get; set; }
+        public string? corFundo { get; set; }
 
         public string? Logo { get; set; }
 
@@ -30,6 +30,6 @@
 
         public DateTime DataFinal { get; set; }
 
-        public bool Status { get; set; }
+        public bool status { get; set; }
     }
 }
